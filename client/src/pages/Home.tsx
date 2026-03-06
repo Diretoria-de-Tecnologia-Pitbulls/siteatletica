@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Trophy, Users, Zap, MapPin, Mail, Instagram, Calendar, Flame } from "lucide-react";
+import { ArrowRight, Calendar, Flame, Instagram, Mail, MapPin, Trophy, Users, Zap } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -33,6 +33,7 @@ export default function Home() {
             <a href="#eventos" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Eventos</a>
             <a href="#esportes" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Esportes</a>
             <a href="#loja" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Loja</a>
+            <a href="#produtos" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Produtos</a>
             <a href="#contato" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Contato</a>
           </div>
         </div>
@@ -53,13 +54,15 @@ export default function Home() {
               </div>
               <div>
                 <h1 className="text-6xl lg:text-7xl font-black mb-4 text-foreground leading-tight">
-                  Pitbulls<br />
+                  Pitbulls  
+
                   <span className="text-gradient">UFBA</span>
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-lg leading-relaxed font-medium">
                   Força, coragem e lealdade. Somos a atlética da Escola de Administração da UFBA, representando os cursos de Administração, Secretariado Executivo e Administração Pública e Gestão Social.
                 </p>
               </div>
+              {/* --- BOTÃO PRINCIPAL --- */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button className="bg-primary hover:bg-primary/90 text-white gap-2 h-12 px-8 font-semibold button-glow shadow-lg">
                   Conheça Nossos Eventos <ArrowRight className="w-4 h-4" />
@@ -91,15 +94,18 @@ export default function Home() {
               { label: "Posts", value: "310+", icon: Zap },
               { label: "Eventos/Ano", value: "20+", icon: Calendar },
               { label: "Comunidade", value: "Ativa", icon: Trophy },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="icon-box mx-auto mb-4">
-                  <stat.icon className="w-6 h-6" />
+            ].map((stat, i) => {
+              const IconComponent = stat.icon;
+              return (
+                <div key={i} className="text-center">
+                  <div className="icon-box mx-auto mb-4">
+                    <IconComponent className="w-6 h-6" />
+                  </div>
+                  <div className="stat-number">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground mt-2 font-medium">{stat.label}</div>
                 </div>
-                <div className="stat-number">{stat.value}</div>
-                <div className="text-sm text-muted-foreground mt-2 font-medium">{stat.label}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -136,8 +142,10 @@ export default function Home() {
                 image: "/images/event-pit-house.jpg",
                 icon: Zap,
               },
-            ].map((event, i) => (
-              <Card
+            ].map((event, i) => {
+              const EventIcon = event.icon;
+              return (
+                <Card
                 key={i}
                 className="card-elevated overflow-hidden border-0 cursor-pointer"
                 onMouseEnter={() => setHoveredCard(`event-${i}`)}
@@ -154,12 +162,18 @@ export default function Home() {
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="icon-box-accent">
-                      <event.icon className="w-5 h-5" />
+                      <EventIcon className="w-5 h-5" />
                     </div>
                     <h3 className="text-xl font-bold text-foreground">{event.title}</h3>
                   </div>
                   <p className="text-muted-foreground text-sm mb-4 font-medium">{event.description}</p>
-                  <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-muted font-semibold">
+                  {/* --- BOTÃO DE EVENTOS --- */}
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="border-primary text-primary hover:bg-muted font-semibold"
+                    onClick={() => window.open('https://www.instagram.com/atleticapitbulls/', '_blank')}
+                  >
                     Saiba Mais
                   </Button>
                 </div>
@@ -233,8 +247,16 @@ export default function Home() {
               <p className="text-muted-foreground text-sm mb-6 font-medium">
                 Camisetas oficiais com design exclusivo
               </p>
-              <Button size="sm" className="bg-primary hover:bg-primary/90 text-white font-semibold">
-                Ver Produtos
+              {/* --- BOTÃO DE CAMISETAS --- */}
+              <Button 
+                size="sm" 
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                onClick={() => {
+                  const message = encodeURIComponent("Olá, tenho interesse em comprar camisetas. Você pode me mostrar o catálogo?");
+                  window.open(`https://wa.me/71900000000?text=${message}`, '_blank');
+                }}
+              >
+                Quero comprar
               </Button>
             </Card>
 
@@ -244,8 +266,79 @@ export default function Home() {
               <p className="text-muted-foreground text-sm mb-6 font-medium">
                 Bonés, mochilas e outros itens
               </p>
-              <Button size="sm" className="bg-primary hover:bg-primary/90 text-white font-semibold">
-                Ver Produtos
+              {/* --- BOTÃO DE ACESSÓRIOS --- */}
+              <Button 
+                size="sm" 
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                onClick={() => {
+                  const message = encodeURIComponent("Olá, tenho interesse em comprar acessórios. Você pode me mostrar o catálogo?");
+                  window.open(`https://wa.me/71900000000?text=${message}`, '_blank');
+                }}
+              >
+                Quero comprar
+              </Button>
+            </Card>
+          </div>
+
+          <div className="text-center">
+            <a href="https://www.instagram.com/shop.pitbulls/" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="border-2 border-primary text-primary hover:bg-muted font-semibold">
+                <Instagram className="w-4 h-4 mr-2" />
+                Visite @shop.pitbulls
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Produtos Section */}
+      <section id="produtos" className="py-24">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-black mb-4 text-foreground">
+              <span className="accent-line">Nossos Produtos</span>
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-medium">
+              Confira nossa linha completa de produtos da Atlética Pitbulls com o branding oficial.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-12">
+            <Card className="card-elevated border-0 p-8 text-center">
+              <div className="text-6xl mb-4">🛍️</div>
+              <h3 className="text-2xl font-bold mb-2 text-foreground">Produtos</h3>
+              <p className="text-muted-foreground text-sm mb-6 font-medium">
+                Linha completa de produtos oficiais
+              </p>
+              {/* --- BOTÃO DE PRODUTOS --- */}
+              <Button 
+                size="sm" 
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                onClick={() => {
+                  const message = encodeURIComponent("Olá, tenho interesse em comprar produtos. Você pode me mostrar o catálogo?");
+                  window.open(`https://wa.me/71900000000?text=${message}`, '_blank');
+                }}
+              >
+                Quero comprar
+              </Button>
+            </Card>
+
+            <Card className="card-elevated border-0 p-8 text-center">
+              <div className="text-6xl mb-4">🎁</div>
+              <h3 className="text-2xl font-bold mb-2 text-foreground">Presentes</h3>
+              <p className="text-muted-foreground text-sm mb-6 font-medium">
+                Perfeitos para presentear ou colecionar
+              </p>
+              {/* --- BOTÃO DE PRESENTES --- */}
+              <Button 
+                size="sm" 
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                onClick={() => {
+                  const message = encodeURIComponent("Olá, tenho interesse em comprar produtos. Você pode me mostrar o catálogo?");
+                  window.open(`https://wa.me/71900000000?text=${message}`, '_blank');
+                }}
+              >
+                Quero comprar
               </Button>
             </Card>
           </div>
@@ -331,5 +424,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  );
+   );
 }
